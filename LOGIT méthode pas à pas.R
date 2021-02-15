@@ -35,29 +35,29 @@ print(sum(is.na(df)))
 #************************************************************
 #SELECTION DE VARAIBLES PAS A PAS BACKWARD
 
-#modèle null
+#modÃ¨le null
 fit <- glm(BAD~1,data=df,family=binomial())
 summary(fit)
 
-#modèle avec toutes les variables
+#modÃ¨le avec toutes les variables
 fit1 <- glm(BAD~LOAN + MORTDUE + VALUE + REASON_DebtCon + REASON_HomeImp + YOJ + JOB_Mgr + JOB_Office + JOB_ProfExe + JOB_Sales + JOB_Self + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC,data=df,family=binomial())
 summary(fit1)
 print(BIC(fit1))
 print(AIC(fit1))
 
-# modèle 2 : sans JOB OFFICE
+# modÃ¨le 2 : sans JOB OFFICE
 fit2 <- glm(BAD~LOAN + MORTDUE + VALUE + REASON_DebtCon + REASON_HomeImp + YOJ + JOB_Mgr + JOB_Other + JOB_ProfExe + JOB_Sales + JOB_Self + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC,data=df,family=binomial())
 summary(fit2)
 print(BIC(fit2))
 print(AIC(fit2))
 
-#modèle 3 : sans REASON_HomeImp : BEST AIC
+#modÃ¨le 3 : sans REASON_HomeImp : BEST AIC
 fit3 <- glm(BAD~LOAN + MORTDUE + VALUE + REASON_DebtCon + YOJ + JOB_Mgr + JOB_Other + JOB_ProfExe + JOB_Sales + JOB_Self + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC,data=df,family=binomial())
 summary(fit3)
 print(BIC(fit3))
 print(AIC(fit3))
 
-#Probabilté d'erreur 
+#ProbabiltÃ© d'erreur 
 
 n <- nrow(df)
 l <- 500
@@ -70,25 +70,25 @@ model <- glm(BAD~LOAN + MORTDUE + VALUE + REASON_DebtCon + YOJ + JOB_Mgr + JOB_O
 pred <- round(predict(model, newdata = df_test, type = 'response'))
 mean(pred!= df_test$BAD)
 
-#modèle 4 : on enleve YOJ
+#modÃ¨le 4 : on enleve YOJ
 fit4 <- glm(BAD~LOAN + MORTDUE + VALUE + REASON_DebtCon + JOB_Mgr + JOB_Other + JOB_ProfExe + JOB_Sales + JOB_Self + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC,data=df,family=binomial())
 summary(fit4)
 print(BIC(fit4))
 print(AIC(fit4))
 
-#modèle 5 : on enleve MORTDUE 
+#modÃ¨le 5 : on enleve MORTDUE 
 fit5 <- glm(BAD~LOAN  + VALUE + REASON_DebtCon + JOB_Mgr + JOB_Other + JOB_ProfExe + JOB_Sales + JOB_Self + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC,data=df,family=binomial())
 summary(fit5)
 print(BIC(fit5))
 print(AIC(fit5))
 
-#modèle 6 : On enlève VALUE : BEST BIC
+#modÃ¨le 6 : On enlÃ¨ve VALUE : BEST BIC
 fit6 <- glm(BAD~LOAN + REASON_DebtCon + JOB_Mgr + JOB_Other + JOB_ProfExe + JOB_Sales + JOB_Self + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC,data=df,family=binomial())
 summary(fit6)
 print(BIC(fit6))
 print(AIC(fit6))
 
-#ANOVA sur les modèles 
+#ANOVA sur les modÃ¨les 
 anova(fit, fit6, test="Chisq")
 anova(fit, fit6, test="LRT")
 
@@ -96,7 +96,7 @@ anova(fit, fit3, test="Chisq")
 anova(fit, fit3, test="LRT")
 
 
-#Probabilté d'erreur 
+#ProbabiltÃ© d'erreur 
 n <- nrow(df)
 l <- 500
 set.seed(123)
@@ -115,7 +115,7 @@ summary(fit7)
 print(BIC(fit7))
 print(AIC(fit7))
 
-#Probabilté d'erreur 
+#ProbabiltÃ© d'erreur 
 
 n <- nrow(df)
 l <- 500
